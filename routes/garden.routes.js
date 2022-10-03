@@ -44,11 +44,7 @@ router.get("/all-garden", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.put("edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
-=======
-router.put("/edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
->>>>>>> 46882f4c066090e8aad2064b8ff46b25f7c54229
   try {
     const loggedInUser = req.currentUser;
     const { idGarden } = req.params;
@@ -106,8 +102,4 @@ router.delete(
   }
 );
 
-<<<<<<< HEAD
 export default router;
-=======
-export default router;
->>>>>>> 46882f4c066090e8aad2064b8ff46b25f7c54229
