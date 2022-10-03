@@ -3,10 +3,7 @@ const router = express.Router()
 
 import {UserModel} from "../models/User.model.js";
 import {CommentModel} from "../models/Comment.model.js";
-
-
-import CommentModel from "../models/Comment.model.js";
-import PlantModel from '../models/Plant.model.js'
+import {PlantModel} from '../models/Plant.model.js'
 
 router.post("/create/:idPlant/:idAuthor", async (req, res) => {
     try {

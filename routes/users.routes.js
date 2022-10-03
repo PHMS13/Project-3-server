@@ -13,8 +13,6 @@ const saltRounds = 10;
 const router = express.Router();
 import isAuth from "../middlewares/isAuth.js";
 
-
-import isAuth from "../middlewares/isAuth.js";
 import generateToken from "../config/jwt.config.js";
 
 import attachCurrentUser from "../middlewares/attachCurrentUser.js";
