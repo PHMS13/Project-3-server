@@ -21,7 +21,7 @@ router.post("/create/:idPost/:idAuthor", async (req, res) => {
         },
       });
   
-      return res.status(201).json(newComment);
+      return res.status(201).json(newComment);gi
     } catch (error) {
       console.log(error);
       return res.status(400).json(error);
