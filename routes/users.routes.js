@@ -1,9 +1,10 @@
 import express from "express";
 //const express = require("express")
-import { CommentModel } from "../models/Comment.model.js";
+
 import { UserModel } from "../models/User.model.js";
 import { PlantModel } from "../models/Plant.model.js";
 import { GardenModel } from "../models/Garden.model.js";
+
 
 import bcrypt from "bcrypt";
 const saltRounds = 10;
@@ -17,9 +18,9 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer'
 let transporter = nodemailer.createTransport({
-  service: "hotmail", //email
+  service: "Hotmail", //email
   auth: {
     user: "garden85wd@hotmail.com", //usuário
     pass: "SenhaSegura!123", //senha
@@ -36,7 +37,7 @@ router.post("/sign-up", async (req, res) => {
     if (
       !password ||
       !password.match(
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_!])[0-9a-zA-Z$*&@#_!]{8,}$/
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/
       )
     ) {
       return res
@@ -127,7 +128,7 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
 
     const user = await UserModel.findById(loggedInUser._id, {
       passwordHash: 0,
-    }).populate("posts");
+    }).populate("garden");
 
     return res.status(200).json(user);
   } catch (error) {
@@ -276,7 +277,6 @@ router.delete("/delete/:idUser", async (req, res) => {
   }
 });
 
-
 // tamires              // bruno
 //quem está seguindo // quem foi seguido
 /* router.put(
@@ -369,6 +369,4 @@ router.get("/activate-account/:idUser", async (req, res) => {
   }
 });
 
-
-
-export default router
+export default router;

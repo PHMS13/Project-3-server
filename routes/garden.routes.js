@@ -1,10 +1,13 @@
 import express from "express";
 const router = express.Router();
 
-import UserModel from "../models/User.model.js";
-import GardenModel from "../models/Garden.model.js";
-import CommentModel from "../models/Comment.model.js";
-import PlantModel from "../models/Plant.model.js";
+import { UserModel } from "../models/User.model.js";
+import { GardenModel } from "../models/Garden.model.js";
+import { CommentModel } from "../models/Comment.model.js";
+import { PlantModel } from "../models/Plant.model.js";
+import isAuth from "../middlewares/isAuth.js";
+import attachCurrentUser from "../middlewares/attachCurrentUser.js";
+import isAdmin from "../middlewares/isAdmin.js";
 
 router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {
@@ -41,7 +44,11 @@ router.get("/all-garden", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.put("edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
+=======
+router.put("/edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
+>>>>>>> 46882f4c066090e8aad2064b8ff46b25f7c54229
   try {
     const loggedInUser = req.currentUser;
     const { idGarden } = req.params;
@@ -67,6 +74,7 @@ router.delete(
   "/delete/:idGarden",
   isAuth,
   attachCurrentUser,
+
   async (req, res) => {
     try {
       const loggedInUser = req.currentUser;
@@ -98,4 +106,8 @@ router.delete(
   }
 );
 
+<<<<<<< HEAD
 export default router;
+=======
+export default router;
+>>>>>>> 46882f4c066090e8aad2064b8ff46b25f7c54229
