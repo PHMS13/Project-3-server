@@ -1,9 +1,8 @@
 import express from "express"
 const router = express.Router()
 
-import UserModel from "../models/User.model.js"
-import PostModel from "../models/Post.model.js";
-import CommentModel from "../models/Comment.model.js";
+import {UserModel} from "../models/User.model.js";
+import {CommentModel} from "../models/Comment.model.js";
 
 router.post("/create/:idPost/:idAuthor", async (req, res) => {
     try {
@@ -21,7 +20,7 @@ router.post("/create/:idPost/:idAuthor", async (req, res) => {
         },
       });
   
-      return res.status(201).json(newComment);
+      return res.status(201).json(newComment);gi
     } catch (error) {
       console.log(error);
       return res.status(400).json(error);

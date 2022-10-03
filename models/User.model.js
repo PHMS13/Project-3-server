@@ -1,4 +1,4 @@
-import mongoose from ("mongoose")
+import mongoose from "mongoose"
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
@@ -19,7 +19,7 @@ const UserSchema = new Schema(
       country:{type: String, required: true ,default: "Escolha seu país"},
       city:{type: String, required: true ,default: "Escolha sua cidade"},
       //Onde será possível comentar o jardim do vizinho ;)
-      posts: [{ type: Schema.Types.ObjectId, ref: "Post" }], 
+     // posts: [{ type: Schema.Types.ObjectId, ref: "Post" }], 
       //Onde mostraremos quem o usuário segue e quantos o seguem
       followers: [{ type: Schema.Types.ObjectId, ref: "User" }], 
       following: [{ type: Schema.Types.ObjectId, ref: "User" }],
