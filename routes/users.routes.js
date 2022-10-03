@@ -20,10 +20,10 @@ import isAdmin from "../middlewares/isAdmin";
 //configurar o transporter
 import nodemailer from "nodemailer";
 let transporter = nodemailer.createTransport({
-  service: "", //email
+  service: "hotmail", //email
   auth: {
-    user: "", //usuário
-    pass: "", //senha
+    user: "garden85wd@hotmail.com", //usuário
+    pass: "SenhaSegura!123", //senha
   },
 });
 
@@ -61,7 +61,7 @@ router.post("/sign-up", async (req, res) => {
 
     //envio de email
     const mailOptions = {
-      from: "turma85wdft@hotmail.com",
+      from: "garden85wd@hotmail.com",
       to: email,
       subject: "Ativação de conta",
       html: `<p>Clique no link para ativar sua conta:<p> <a href=http://localhost:4000/users/activate-account/${newUser._id}>LINK</a>`,
