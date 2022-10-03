@@ -1,3 +1,4 @@
+
 import express from "express";
 const router = express.Router();
 
@@ -30,6 +31,7 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
+
 router.get("/all-garden", async (req, res) => {
   try {
     const allGarden = await GardenModel.find();
@@ -46,6 +48,7 @@ router.put("/:idGarden/edit", isAuth, attachCurrentUser, async (req, res) => {
     const loggedInUser = req.currentUser;
     const { idGarden } = req.params;
 
+
     const editedGarden = await GardenModel.findByIdAndUpdate(
       idGarden,
       {
@@ -61,12 +64,15 @@ router.put("/:idGarden/edit", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
+
 // router.delete("/delete/:idgarden")
+
 
 router.delete(
   "/delete/:idGarden",
   isAuth,
   attachCurrentUser,
+
   async (req, res) => {
     try {
       const loggedInUser = req.currentUser;
