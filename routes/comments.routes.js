@@ -5,13 +5,13 @@ import {UserModel} from "../models/User.model.js";
 import {CommentModel} from "../models/Comment.model.js";
 import {PlantModel} from '../models/Plant.model.js'
 
-router.post("/create/:idPlant/:idAuthor", async (req, res) => {
+router.post("/create/:idPlant/:idUser", async (req, res) => {
     try {
-      const { idPlant, idAuthor } = req.params;
+      const { idPlant, idUser } = req.params;
   
       const newComment = await CommentModel.create({
         ...req.body,
-        author: idAuthor,
+        author: idUser,
         plant: idPlant,
       });
   
