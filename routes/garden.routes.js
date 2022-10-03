@@ -44,7 +44,7 @@ router.get("/all-garden", async (req, res) => {
   }
 });
 
-router.put("edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
+router.put("/edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const loggedInUser = req.currentUser;
     const { idGarden } = req.params;
