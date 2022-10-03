@@ -1,10 +1,13 @@
 import express from "express"
 const router = express.Router()
 
-import UserModel from "../models/User.model.js"
-import GardenModel from "../models/Garden.model.js";
+import {UserModel} from "../models/User.model.js"
+import {GardenModel} from "../models/Garden.model.js";
+import {CommentModel} from "../models/Comment.model.js";
+import { PlantModel } from "../models/Plant.model.js";
 
-router.post("/create-garden", middlewares, async (req, res) => {
+
+router.post("/create-garden", async (req, res) => {
     try {
       const idAuthor = req.currentUser._id
   

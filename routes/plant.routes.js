@@ -1,7 +1,9 @@
 import express from "express"
 const router = express.Router()
 
-const PlantModel = require('../models/Plant.model')
+import {UserModel} from "../models/User.model.js"
+import {GardenModel} from "../models/Garden.model.js";
+import {PlantModel} from '../models/Plant.model.js'
 
 //Criar Planta:
 router.post('/create', async (req, res) => {
@@ -12,7 +14,7 @@ router.post('/create', async (req, res) => {
 
 //Editar planta:
 router.put('/edit/:idPlant', async (req, res) => {
-    const 
+     
 })
 
 export default router;
