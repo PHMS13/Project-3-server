@@ -3,18 +3,19 @@ const router = express.Router()
 
 import {UserModel} from "../models/User.model.js";
 import {CommentModel} from "../models/Comment.model.js";
+import {PlantModel} from '../models/Plant.model.js'
 
-router.post("/create/:idPost/:idAuthor", async (req, res) => {
+router.post("/create/:idPlant/:idUser", async (req, res) => {
     try {
-      const { idPost, idAuthor } = req.params;
+      const { idPlant, idUser } = req.params;
   
       const newComment = await CommentModel.create({
         ...req.body,
-        author: idAuthor,
-        post: idPost,
+        author: idUser,
+        plant: idPlant,
       });
   
-      await PostModel.findByIdAndUpdate(idPost, {
+      await PlantModel.findByIdAndUpdate(idPlant, {
         $push: {
           comments: newComment._id,
         },
@@ -53,9 +54,9 @@ router.post("/create/:idPost/:idAuthor", async (req, res) => {
       //apaguei o comentário do CommentModel
       const deletedComment = await CommentModel.findByIdAndDelete(idComment);
   
-      //apagar o ID do comentário da ARRAY comments, no PostModel
-      await PostModel.findByIdAndUpdate(
-        deletedComment.post,
+      //apagar o ID do comentário da ARRAY comments, no PlantModel
+      await PlantModel.findByIdAndUpdate(
+        deletedComment.plant,
         {
           $pull: {
             comments: idComment,

@@ -5,6 +5,7 @@ import { UserModel } from "../models/User.model.js";
 import { PlantModel } from "../models/Plant.model.js";
 import { GardenModel } from "../models/Garden.model.js";
 
+
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
@@ -17,7 +18,7 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer'
 let transporter = nodemailer.createTransport({
   service: "Hotmail", //email
   auth: {

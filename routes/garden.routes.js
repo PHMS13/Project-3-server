@@ -10,6 +10,7 @@ import isAuth from "../middlewares/isAuth.js";
 import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
+
 router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const loggedInUser = req.currentUser;
@@ -46,7 +47,7 @@ router.get("/all-garden", async (req, res) => {
   }
 });
 
-router.put("/:idGarden/edit", isAuth, attachCurrentUser, async (req, res) => {
+router.put("/edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const loggedInUser = req.currentUser;
     const { idGarden } = req.params;
