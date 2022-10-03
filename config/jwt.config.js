@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 
-
-function generateToken(User) {
-    const { _id, email, role } = user;
+function generateToken(user) {
+  const { _id, email, role } = user;
 
   //assinatura
   const signature = process.env.TOKEN_SIGN_SECRET;

@@ -30,7 +30,7 @@ router.post("/create-garden", async (req, res) => {
 
 
 
-  router.get("/all-garden", attachCurrentUser, async (req, res) => {
+  router.get("/all-garden", async (req, res) => {
     try {
       const loggedInUser = req.currentUser;
       const { idGarden } = req.params;
@@ -46,7 +46,7 @@ router.post("/create-garden", async (req, res) => {
 
 
 
-  router.put("/idGarden/edit", isAuth, attachCurrentUser, async (req, res) => {
+  router.put("/idGarden/edit", async (req, res) => {
     try {
       const loggedInUser = req.currentUser;
       const { idGarden } = req.params;
@@ -71,8 +71,7 @@ router.post("/create-garden", async (req, res) => {
 
  router.delete(
   "/delete/:idgarden",
-  isAuth,
-  attachCurrentUser,
+
   async (req, res) => {
     try {
       const loggedInUser = req.currentUser;
