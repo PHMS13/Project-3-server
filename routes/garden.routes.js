@@ -2,10 +2,13 @@
 import express from "express";
 const router = express.Router();
 
-import UserModel from "../models/User.model.js";
-import GardenModel from "../models/Garden.model.js";
-import CommentModel from "../models/Comment.model.js";
-import PlantModel from "../models/Plant.model.js";
+import {UserModel} from "../models/User.model.js";
+import {GardenModel} from "../models/Garden.model.js";
+import { CommentModel } from "../models/Comment.model.js";
+import {PlantModel} from "../models/Plant.model.js";
+import isAuth from "../middlewares/isAuth.js";
+import attachCurrentUser from "../middlewares/attachCurrentUser.js";
+import isAdmin from "../middlewares/isAdmin.js";
 
 router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {
@@ -103,3 +106,6 @@ router.delete(
     }
   }
 );
+
+
+export default router;
