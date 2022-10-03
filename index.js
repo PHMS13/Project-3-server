@@ -20,10 +20,10 @@ app.use("/comments", CommentsRoute)
 /* import PostRoute from "./routes/posts.routes.js"
 app.use("/posts", PostsRoute) */
 
-import GardenRoute from "./routes/garden.routes"
+import GardenRoute from "./routes/garden.routes.js"
 app.use("/garden", GardenRoute)
 
-import PlantRoute from "./routes/plant.routes"
+import PlantRoute from "./routes/plant.routes.js"
 app.use("/plant", PlantRoute)
 
 

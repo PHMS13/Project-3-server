@@ -1,21 +1,20 @@
 import express from "express";
 //const express = require("express")
-import { CommentModel } from "../models/User.model";
-import { PostModel } from "../models/Garden.model";
-import { PlantModel } from "../models/Plant.model";
-import { GardenModel } from "../models/Garden.model";
+import { CommentModel } from "../models/Comment.model.js";
+import { UserModel } from "../models/User.model.js";
+import { PlantModel } from "../models/Plant.model.js";
+import { GardenModel } from "../models/Garden.model.js";
 
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
 const router = express.Router();
+import isAuth from "../middlewares/isAuth.js";
 
-import { UserModel } from "../models/User.model";
+import generateToken from "../config/jwt.config.js";
 
-import generateToken from "../config/jwt.config";
-import isAuth from "../middlewares/isAuth";
-import attachCurrentUser from "../middlewares/attachCurrentUser";
-import isAdmin from "../middlewares/isAdmin";
+import attachCurrentUser from "../middlewares/attachCurrentUser.js";
+import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
 import nodemailer from "nodemailer";
