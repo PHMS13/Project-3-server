@@ -1,7 +1,6 @@
 import express from "express";
 //const express = require("express")
 
-import { CommentModel } from "../models/Comment.model.js";
 import { UserModel } from "../models/User.model.js";
 import { PlantModel } from "../models/Plant.model.js";
 import { GardenModel } from "../models/Garden.model.js";
