@@ -4,7 +4,7 @@ import express from "express";
 import { UserModel } from "../models/User.model.js";
 import { PlantModel } from "../models/Plant.model.js";
 import { GardenModel } from "../models/Garden.model.js";
-import { CommentModel } from "../models/Garden.model.js";
+import { CommentModel } from "../models/Comment.model.js";
 
 import bcrypt from "bcrypt";
 const saltRounds = 10;
