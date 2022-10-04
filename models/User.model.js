@@ -12,10 +12,11 @@ const UserSchema = new Schema(
       match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
     },
     passwordHash: { type: String, required: true },
+    profileImage: {type: String, default: ""},
     age: { type: Number },
     role: { type: String, enum: ["USER", "ADMIN"], default: "USER" },
     //Usaremos para pesquisar/filtrar a região do usuário e talvez criar um mapa do globo para mostrar onde temos jardins
-    region: { type: String, required: true, default: "Escolha sua região" },
+    region: { type: String, default: "Escolha sua região" },
     country: { type: String, required: true, default: "Escolha seu país" },
     city: { type: String, required: true, default: "Escolha sua cidade" },
     //Onde será possível comentar o jardim do vizinho ;)
