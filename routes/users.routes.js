@@ -4,7 +4,7 @@ import express from "express";
 import { UserModel } from "../models/User.model.js";
 import { PlantModel } from "../models/Plant.model.js";
 import { GardenModel } from "../models/Garden.model.js";
-
+import { CommentModel } from "../models/Garden.model.js";
 
 import bcrypt from "bcrypt";
 const saltRounds = 10;
@@ -137,6 +137,25 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
+//get one user, agora usando os middlewares
+router.get("/user/:idUser", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+
+    const {idUser} = req.params
+
+    //console.log(req.currentUser);
+    const loggedInUser = req.currentUser;
+    console.log(loggedInUser);
+
+    const user = await UserModel.findById( idUser).populate("garden");
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 //edit
 router.put("/edit", isAuth, attachCurrentUser, async (req, res) => {
   try {
@@ -167,14 +186,22 @@ router.delete("/delete-user", isAuth, attachCurrentUser, async (req, res) => {
     const deletedUser = await UserModel.findByIdAndDelete(idUser);
     delete deletedUser._doc.passwordHash;
 
-    //deletando todos os comentários que o usuário já fez
-    const deletedComments = await CommentModel.deleteMany({ author: idUser });
+    const deleteComment = await CommentModel.deleteMany({author: idUser})
 
-    //primeiro eu vou PROCURAR todos os posts que o usuário fez
-    const postsFromUser = await PostModel.find({ author: idUser }); //array
+    const deletePlant = await PlantModel.deleteMany({author: idUser})
+
+    const deleteGarden = await GardenModel.deleteMany({author: idUser})
+    
 
     //iterar por todos os posts!
-    postsFromUser.forEach(async (post) => {
+    CommentFromUser.forEach(async (post) => {
+      //iterar por todos os meus COMMENTS
+      post.comments.forEach(async (comment) => {
+        await CommentModel.findByIdAndDelete(comment._id);
+      });
+    });
+
+    CommentFromUser.forEach(async (post) => {
       //iterar por todos os meus COMMENTS
       post.comments.forEach(async (comment) => {
         await CommentModel.findByIdAndDelete(comment._id);
@@ -232,11 +259,11 @@ router.delete("/delete/:idUser", async (req, res) => {
     //deletando o usuário
     const deletedUser = await UserModel.findByIdAndDelete(idUser);
 
-    //deletando todos os comentários que o usuário já fez
-    const deletedComments = await CommentModel.deleteMany({ author: idUser });
+    //deletando todos os gardens que o usuário já fez
+    const deletedGarden = await GardenModel.deleteMany({ author: idUser });
 
     //primeiro eu vou PROCURAR todos os posts que o usuário fez
-    const postsFromUser = await PostModel.find({ author: idUser }); //array
+    const postsFromUser = await PostModel.find({ author: idUser }); //arrayE
 
     //iterar por todos os posts!
     postsFromUser.forEach(async (post) => {
@@ -277,76 +304,7 @@ router.delete("/delete/:idUser", async (req, res) => {
   }
 });
 
-// tamires              // bruno
-//quem está seguindo // quem foi seguido
-/* router.put(
-  "/follow/:idUserFollowed",
-  isAuth,
-  attachCurrentUser,
-  async (req, res) => {
-    try {
-      const idUserFollowing = req.currentUser._id;
-      const { idUserFollowed } = req.params;
 
-      //FARIA UM IF PARA NÃO DEIXAR O PRÓPRIO USUÁRIO SE SEGUIR
-
-      //tamires
-      const userFollowing = await UserModel.findByIdAndUpdate(
-        idUserFollowing,
-        {
-          $addToSet: { following: idUserFollowed },
-        },
-        { new: true }
-      );
-
-      //Pedro
-      const userFollowed = await UserModel.findByIdAndUpdate(idUserFollowed, {
-        $addToSet: { followers: idUserFollowing },
-      });
-
-      return res.status(200).json(userFollowing);
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json(error);
-    }
-  }
-);
-
-router.put(
-  "/unfollow/:idUserUnfollowed",
-  isAuth,
-  attachCurrentUser,
-  async (req, res) => {
-    try {
-      const idUserUnfollowing = req.currentUser._id;
-      const { idUserUnfollowed } = req.params;
-
-      //Tamires
-      const userUnfollowing = await UserModel.findByIdAndUpdate(
-        idUserUnfollowing,
-        {
-          $pull: { following: idUserUnfollowed },
-        },
-        {
-          new: true,
-        }
-      );
-
-      //Pedro
-      const userUnfollowed = await UserModel.findByIdAndUpdate(
-        idUserUnfollowed,
-        {
-          $pull: { followers: idUserUnfollowing },
-        }
-      );
-
-      return res.status(200).json(userUnfollowing);
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json(error);
-    }
-  }
-); */
 
 router.get("/activate-account/:idUser", async (req, res) => {
   try {

@@ -1,15 +1,13 @@
-
 import express from "express";
 const router = express.Router();
 
-import {UserModel} from "../models/User.model.js";
-import {GardenModel} from "../models/Garden.model.js";
+import { UserModel } from "../models/User.model.js";
+import { GardenModel } from "../models/Garden.model.js";
 import { CommentModel } from "../models/Comment.model.js";
-import {PlantModel} from "../models/Plant.model.js";
+import { PlantModel } from "../models/Plant.model.js";
 import isAuth from "../middlewares/isAuth.js";
 import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
-
 
 router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   try {
@@ -35,7 +33,6 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
-
 router.get("/all-garden", async (req, res) => {
   try {
     const allGarden = await GardenModel.find();
@@ -52,7 +49,6 @@ router.put("/edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
     const loggedInUser = req.currentUser;
     const { idGarden } = req.params;
 
-
     const editedGarden = await GardenModel.findByIdAndUpdate(
       idGarden,
       {
@@ -68,9 +64,7 @@ router.put("/edit/:idGarden", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
-
 // router.delete("/delete/:idgarden")
-
 
 router.delete(
   "/delete/:idGarden",
@@ -107,6 +101,5 @@ router.delete(
     }
   }
 );
-
 
 export default router;

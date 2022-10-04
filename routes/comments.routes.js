@@ -1,5 +1,5 @@
-import express from "express"
-const router = express.Router()
+import express from "express";
+const router = express.Router();
 
 import {UserModel} from "../models/User.model.js";
 import {CommentModel} from "../models/Comment.model.js";
@@ -58,14 +58,38 @@ router.delete("/delete/:idPlant/:idComment", isAuth, attachCurrentUser, async (r
       const { idPlant, idUser } = req.params;
   
       const newComment = await CommentModel.create({
+router.put("/edit/:idComment", async (req, res) => {
+  try {
+    const { idComment } = req.params;
+
+    const editedComment = await CommentModel.findByIdAndUpdate(
+      idComment,
+      {
         ...req.body,
-        author: idUser,
-        plant: idPlant,
-      });
-  
-      await PlantModel.findByIdAndUpdate(idPlant, {
-        $push: {
-          comments: newComment._id,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(editedComment);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.delete("/delete/:idComment", async (req, res) => {
+  try {
+    const { idComment } = req.params;
+
+    //apaguei o comentário do CommentModel
+    const deletedComment = await CommentModel.findByIdAndDelete(idComment);
+
+    //apagar o ID do comentário da ARRAY comments, no PlantModel
+    await PlantModel.findByIdAndUpdate(
+      deletedComment.plant,
+      {
+        $pull: {
+          comments: idComment,
         },
       });
   
