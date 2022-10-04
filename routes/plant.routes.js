@@ -3,10 +3,6 @@ const router = express.Router();
 
 import { UserModel } from "../models/User.model.js";
 import { GardenModel } from "../models/Garden.model.js";
-<<<<<<< HEAD
-import { CommentModel } from "../models/Comment.model.js";
-=======
->>>>>>> f8fca0afd24066d30a999a19a18c9a3357217a07
 import { PlantModel } from "../models/Plant.model.js";
 import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAuth from "../middlewares/isAuth.js";
