@@ -13,7 +13,6 @@ const PlantSchema = new Schema(
         plantImage:{type: String},
         info:{type: String},
         garden: { type: Schema.Types.ObjectId, ref: "Garden"},
-        comments: [{ type: Schema.Types.ObjectId, ref: "Comments"}]
       },
       { timestamps: true }
     );

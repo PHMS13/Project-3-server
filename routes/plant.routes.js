@@ -52,6 +52,7 @@ router.delete("/delete/:id", isAuth, attachCurrentUser, async (req, res) => {
     });
 
     return res.status(200).json({
+      message: "Usuário atualizado. Plantas e comentários deletados.",
       deletedPlant: deletedPlant,
       commentsUser: deletedComments,
     });

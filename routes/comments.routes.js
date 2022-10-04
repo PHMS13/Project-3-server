@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import {UserModel} from "../models/User.model.js";
+import {GardenModel} from "../models/Garden.model.js";
 import {CommentModel} from "../models/Comment.model.js";
 import {PlantModel} from '../models/Plant.model.js'
 import isAuth from '../middlewares/isAuth.js'
@@ -9,18 +9,18 @@ import attachCurrentUser from '../middlewares/attachCurrentUser.js'
 
 
 //CRIAR COMMENT:
-router.post("/create/:idPlant/:idUser", async (req, res) => {
+router.post("/create/:idGarden/:idUser", async (req, res) => {
   try {
 
-    const { idPlant, idUser } = req.params
+    const { idGarden, idUser } = req.params
 
     const newComment = await CommentModel.create({
       ...req.body,
       author: idUser,
-      plant: idPlant
+      garden: idGarden
     })
 
-    await PlantModel.findByIdAndUpdate(idPlant, {
+    await GardenModel.findByIdAndUpdate(idGarden, {
       $push: {
         comments: newComment._id
       }
@@ -36,7 +36,7 @@ router.post("/create/:idPlant/:idUser", async (req, res) => {
 
 
 //DELETAR COMMENT:
-router.delete("/delete/:idPlant/:idComment", isAuth, attachCurrentUser, async (req, res) => {
+router.delete("/delete/:idGarden/:idComment", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const { idComment } = req.params;
     const deletedComment = await CommentModel.findByIdAndDelete(idComment)
