@@ -2,7 +2,7 @@ import express from "express"
 const router = express.Router();
 
 //middleware
-import uploadimg from "../config/cloudnary.config"
+import uploadimg from "../config/cloudnary.config.js"
 
 //localhost:4000/upload-image
 router.post("/upload-image", uploadimg.single("picture"), (req, res) => {
