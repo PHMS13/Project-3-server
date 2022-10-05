@@ -13,12 +13,21 @@ router.post(
   isAuth,
   attachCurrentUser,
   async (req, res) => {
-    const newPlant = await PlantModel.create({
-      ...req.body,
-      garden: req.params.idGarden,
-    });
+    try {
+      const newPlant = await PlantModel.create({
+        ...req.body,
+        garden: req.params.idGarden,
+      });
 
-    return res.status(201).json(newPlant);
+      await GardenModel.findByIdAndUpdate(req.params.idGarden, {
+        $push: { plants: newPlant._id },
+      });
+
+      return res.status(201).json(newPlant);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
+    }
   }
 );
 
