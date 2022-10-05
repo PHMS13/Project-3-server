@@ -8,11 +8,28 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAuth from "../middlewares/isAuth.js";
 
 //CRIAR Planta:
-router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
-  const newPlant = await PlantModel.create({ ...req.body });
+router.post(
+  "/create/:idGarden",
+  isAuth,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const newPlant = await PlantModel.create({
+        ...req.body,
+        garden: req.params.idGarden,
+      });
 
-  return res.status(201).json(newPlant);
-});
+      await GardenModel.findByIdAndUpdate(req.params.idGarden, {
+        $push: { plants: newPlant._id },
+      });
+
+      return res.status(201).json(newPlant);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
+    }
+  }
+);
 
 //EDITAR Planta:
 router.put("/edit/:id", isAuth, attachCurrentUser, async (req, res) => {
