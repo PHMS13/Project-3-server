@@ -45,7 +45,7 @@ const UserSchema = new Schema(
         "Quarto",
         "Outros",
       ],
-      default: "other",
+      default: "Outros",
     },
     emailConfirm: { type: Boolean, default: false },
   },

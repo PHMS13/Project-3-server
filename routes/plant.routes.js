@@ -48,16 +48,19 @@ router.get("/all", async (req, res) => {
 //DELETAR Planta
 router.delete("/delete/:id", isAuth, attachCurrentUser, async (req, res) => {
   try {
-    const idPlant = req.currentPlant._id;
-
-    //deletando o usuário
-    const deletedPlant = await PlantModel.findByIdAndDelete(idPlant);
-    delete deletedPlant._doc.passwordHash;
+    const { id } = req.params;
+    console.log(req.currentUser);
+    //deletando a planta
+    const deletedPlant = await PlantModel.findByIdAndDelete(id);
+    //delete deletedPlant._doc.passwordHash;
 
     //deletando todos os comentários da planta
-    const deletedComments = await CommentModel.deleteMany({ author: idUser });
+    const deletedComments = await CommentModel.deleteMany({
+      author: req.currentUser._id,
+    });
 
     return res.status(200).json({
+      message: "Usuário atualizado. Plantas e comentários deletados.",
       deletedPlant: deletedPlant,
       commentsUser: deletedComments,
     });
