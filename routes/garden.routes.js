@@ -33,6 +33,19 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
+router.get(
+  "/one-garden/:idGarden",
+  isAuth,
+  attachCurrentUser,
+  async (req, res) => {
+    const oneGarden = await GardenModel.findById(req.params.idGarden).populate(
+      "plants"
+    );
+
+    return res.status(200).json(oneGarden);
+  }
+);
+
 router.get("/all-garden", async (req, res) => {
   try {
     const allGarden = await GardenModel.find();
@@ -89,17 +102,32 @@ router.delete(
         await PlantModel.findByIdAndDelete(plantId);
       });
 
-      // deleto todos os comentários desse post.
-      //await CommentModel.deleteMany({ comments: idComment });
+      // deleto todos os comentários desse jardim.
+      await CommentModel.deleteMany({ garden: deleteGarden._id });
 
       return res
         .status(200)
-        .json("Jardim deleteado. Usuário atualizado. Plants deletadas");
+        .json(
+          "Jardim deleteado. Usuário atualizado. Plants deletadas. Comentários apagados"
+        );
     } catch (error) {
       console.log(error);
       return res.status(400).json(error);
     }
   }
 );
+
+router.get("/one-garden/:id", isAuth, attachCurrentUser, async (req, res) => {
+  try {
+    const oneGarden = await GardenModel.findById(req.params.id).populate(
+      "plants"
+    );
+
+    return res.status(200).json(oneGarden);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
 
 export default router;
