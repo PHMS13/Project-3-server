@@ -38,7 +38,9 @@ router.get(
   isAuth,
   attachCurrentUser,
   async (req, res) => {
-    const oneGarden = await GardenModel.findById(req.params.idGarden);
+    const oneGarden = await GardenModel.findById(req.params.idGarden).populate(
+      "plants"
+    );
 
     return res.status(200).json(oneGarden);
   }
