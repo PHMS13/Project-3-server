@@ -18,14 +18,14 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
-import nodemailer from "nodemailer";
+/* import nodemailer from "nodemailer";
 let transporter = nodemailer.createTransport({
   service: "Hotmail", //email
   auth: {
     user: "garden85wd@hotmail.com", //usuário
     pass: "SenhaSegura!123", //senha
   },
-});
+}); */
 
 //sign-up (login com senha)
 router.post("/sign-up", async (req, res) => {
@@ -55,11 +55,12 @@ router.post("/sign-up", async (req, res) => {
     const newUser = await UserModel.create({
       ...req.body,
       passwordHash: passwordHash,
+      emailConfirm: true,
     });
 
     delete newUser._doc.passwordHash;
 
-    //envio de email
+    /*     //envio de email
     const mailOptions = {
       from: "garden85wd@hotmail.com",
       to: email,
@@ -68,7 +69,7 @@ router.post("/sign-up", async (req, res) => {
     };
 
     // Dispara e-mail para o usuário
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions); */
 
     return res.status(201).json(newUser);
   } catch (error) {
