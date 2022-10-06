@@ -15,13 +15,13 @@ const GardenSchema = new Schema(
             "Sala",
             "Banheiro",
             "Cozinha",
-            "Jardim",
             "Varanda",
             "Lavanderia",
+            "Quintal",
             "Quarto",
-            "Outros",
+            "Outro",
           ],
-          default: "Outros",
+          default: "Outro",
         }
       },
       { timestamps: true }
