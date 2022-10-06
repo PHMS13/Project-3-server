@@ -1,5 +1,5 @@
 import express from "express";
-//import cors from "cors";
+import cors from "cors";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -8,7 +8,7 @@ const app = express();
 import dbConnect from "./config/db.config.js";
 dbConnect();
 
-//app.use(cors({ origin: process.env.REACT_APP_URI }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 import UsersRoute from "./routes/users.routes.js";
@@ -16,7 +16,6 @@ app.use("/users", UsersRoute);
 
 import CommentsRoute from "./routes/comments.routes.js";
 app.use("/comments", CommentsRoute);
-
 
 import GardenRoute from "./routes/garden.routes.js";
 app.use("/garden", GardenRoute);
