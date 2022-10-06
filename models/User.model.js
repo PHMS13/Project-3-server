@@ -12,7 +12,7 @@ const UserSchema = new Schema(
       match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
     },
     passwordHash: { type: String, required: true },
-    profileImage: {type: String, default: ""},
+    profileImage: { type: String, default: "" },
     age: { type: Number },
     role: { type: String, enum: ["USER", "ADMIN"], default: "USER" },
     //Usaremos para pesquisar/filtrar a região do usuário e talvez criar um mapa do globo para mostrar onde temos jardins
@@ -33,7 +33,6 @@ const UserSchema = new Schema(
     },
     livingSpace: {
       type: String,
-      required: true,
       enum: [
         "Sala",
         "Banheiro",
