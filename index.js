@@ -17,8 +17,6 @@ app.use("/users", UsersRoute);
 import CommentsRoute from "./routes/comments.routes.js";
 app.use("/comments", CommentsRoute);
 
-/* import PostRoute from "./routes/posts.routes.js"
-app.use("/posts", PostsRoute) */
 
 import GardenRoute from "./routes/garden.routes.js";
 app.use("/garden", GardenRoute);
