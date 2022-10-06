@@ -32,21 +32,6 @@ const UserSchema = new Schema(
       required: true,
       enum: ["Apartamento", "Casa", "Sítio", "Studio", "Escritório", "Outro"],
     },
-    livingSpace: {
-      type: String,
-      required: true,
-      enum: [
-        "Sala",
-        "Banheiro",
-        "Cozinha",
-        "Jardim",
-        "Varanda",
-        "Lavanderia",
-        "Quarto",
-        "Outros",
-      ],
-      default: "other",
-    },
     emailConfirm: { type: Boolean, default: false },
   },
   {

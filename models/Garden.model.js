@@ -8,6 +8,21 @@ const GardenSchema = new Schema(
         plants: [{ type: Schema.Types.ObjectId, ref: "Plant" }],
         likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
         gardenImage: {type: String, default: ""},
+        livingSpace: {
+          type: String,
+          required: true,
+          enum: [
+            "Sala",
+            "Banheiro",
+            "Cozinha",
+            "Jardim",
+            "Varanda",
+            "Lavanderia",
+            "Quarto",
+            "Outros",
+          ],
+          default: "Outros",
+        }
       },
       { timestamps: true }
     );
