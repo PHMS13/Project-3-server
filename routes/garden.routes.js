@@ -33,17 +33,6 @@ router.post("/create", isAuth, attachCurrentUser, async (req, res) => {
   }
 });
 
-router.get(
-  "/one-garden/:idGarden",
-  isAuth,
-  attachCurrentUser,
-  async (req, res) => {
-    const oneGarden = await GardenModel.findById(req.params.idGarden);
-
-    return res.status(200).json(oneGarden);
-  }
-);
-
 router.get("/all-garden", async (req, res) => {
   try {
     const allGarden = await GardenModel.find();

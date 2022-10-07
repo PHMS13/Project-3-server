@@ -18,14 +18,14 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
-import nodemailer from 'nodemailer'
+/* import nodemailer from 'nodemailer'
 let transporter = nodemailer.createTransport({
   service: "Hotmail", //email
   auth: {
     user: "garden85wd@hotmail.com", //usuário
     pass: "SenhaSegura!123", //senha
   },
-});
+}); */
 
 //sign-up (login com senha)
 router.post("/sign-up", async (req, res) => {
@@ -59,7 +59,7 @@ router.post("/sign-up", async (req, res) => {
 
     delete newUser._doc.passwordHash;
 
-    //envio de email
+    /*     //envio de email
     const mailOptions = {
       from: "garden85wd@hotmail.com",
       to: email,
@@ -68,7 +68,7 @@ router.post("/sign-up", async (req, res) => {
     };
 
     // Dispara e-mail para o usuário
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions); */
 
     return res.status(201).json(newUser);
   } catch (error) {
@@ -140,14 +140,13 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
 //get one user, agora usando os middlewares
 router.get("/user/:idUser", isAuth, attachCurrentUser, async (req, res) => {
   try {
-
-    const {idUser} = req.params
+    const { idUser } = req.params;
 
     //console.log(req.currentUser);
     const loggedInUser = req.currentUser;
     console.log(loggedInUser);
 
-    const user = await UserModel.findById( idUser).populate("garden");
+    const user = await UserModel.findById(idUser).populate("garden");
 
     return res.status(200).json(user);
   } catch (error) {
@@ -186,12 +185,11 @@ router.delete("/delete-user", isAuth, attachCurrentUser, async (req, res) => {
     const deletedUser = await UserModel.findByIdAndDelete(idUser);
     delete deletedUser._doc.passwordHash;
 
-    const deleteComment = await CommentModel.deleteMany({author: idUser})
+    const deleteComment = await CommentModel.deleteMany({ author: idUser });
 
-    const deletePlant = await PlantModel.deleteMany({author: idUser})
+    const deletePlant = await PlantModel.deleteMany({ author: idUser });
 
-    const deleteGarden = await GardenModel.deleteMany({author: idUser})
-    
+    const deleteGarden = await GardenModel.deleteMany({ author: idUser });
 
     //iterar por todos os posts!
     CommentFromUser.forEach(async (post) => {
@@ -303,8 +301,6 @@ router.delete("/delete/:idUser", async (req, res) => {
     return res.status(400).json(error);
   }
 });
-
-
 
 router.get("/activate-account/:idUser", async (req, res) => {
   try {
