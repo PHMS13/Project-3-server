@@ -239,7 +239,7 @@ router.delete("/delete-user", isAuth, attachCurrentUser, async (req, res) => {
 
 //!ADMIN
 //rota para ver todos os usuário apenas para o administrador
-router.get("/all", isAuth, attachCurrentUser, isAdmin, async (req, res) => {
+router.get("/all", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const allUsers = await UserModel.find({}, { passwordHash: 0 });
 
