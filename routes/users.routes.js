@@ -18,7 +18,9 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
+
 /* import nodemailer from 'nodemailer'
+
 let transporter = nodemailer.createTransport({
   service: "Hotmail", //email
   auth: {
@@ -55,6 +57,7 @@ router.post("/sign-up", async (req, res) => {
     const newUser = await UserModel.create({
       ...req.body,
       passwordHash: passwordHash,
+      emailConfirm: true,
     });
 
     delete newUser._doc.passwordHash;
@@ -148,6 +151,9 @@ router.get("/user/:idUser", isAuth, attachCurrentUser, async (req, res) => {
 
     const user = await UserModel.findById(idUser).populate("garden");
 
+
+    const user = await UserModel.findById(idUser).populate("garden");
+    console.log(user);
     return res.status(200).json(user);
   } catch (error) {
     console.log(error);
