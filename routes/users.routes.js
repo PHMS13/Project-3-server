@@ -18,7 +18,9 @@ import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 import isAdmin from "../middlewares/isAdmin.js";
 
 //configurar o transporter
-/* import nodemailer from "nodemailer";
+
+/* import nodemailer from 'nodemailer'
+
 let transporter = nodemailer.createTransport({
   service: "Hotmail", //email
   auth: {
@@ -142,9 +144,13 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
 router.get("/user/:idUser", isAuth, attachCurrentUser, async (req, res) => {
   try {
     const { idUser } = req.params;
-    console.log(idUser);
 
     //console.log(req.currentUser);
+    const loggedInUser = req.currentUser;
+    console.log(loggedInUser);
+
+    const user = await UserModel.findById(idUser).populate("garden");
+
 
     const user = await UserModel.findById(idUser).populate("garden");
     console.log(user);
