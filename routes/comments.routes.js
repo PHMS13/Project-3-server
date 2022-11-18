@@ -1,57 +1,54 @@
 import express from "express";
 const router = express.Router();
 
-import {GardenModel} from "../models/Garden.model.js";
-import {CommentModel} from "../models/Comment.model.js";
-import {PlantModel} from '../models/Plant.model.js'
-import isAuth from '../middlewares/isAuth.js'
-import attachCurrentUser from '../middlewares/attachCurrentUser.js'
-
+import { GardenModel } from "../models/Garden.model.js";
+import { CommentModel } from "../models/Comment.model.js";
+import isAuth from "../middlewares/isAuth.js";
+import attachCurrentUser from "../middlewares/attachCurrentUser.js";
 
 //CRIAR COMMENT:
 router.post("/create/:idGarden/:idUser", async (req, res) => {
   try {
-
-    const { idGarden, idUser } = req.params
+    const { idGarden, idUser } = req.params;
 
     const newComment = await CommentModel.create({
       ...req.body,
       author: idUser,
-      garden: idGarden
-    })
+      garden: idGarden,
+    });
 
     await GardenModel.findByIdAndUpdate(idGarden, {
       $push: {
-        comments: newComment._id
-      }
-    })
-
-    return res.status(201).json(newComment)
-    
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);  
-  }
-})
-
-
-//DELETAR COMMENT:
-router.delete("/delete/:idGarden/:idComment", isAuth, attachCurrentUser, async (req, res) => {
-  try {
-    const { idComment } = req.params;
-    const deletedComment = await CommentModel.findByIdAndDelete(idComment)
-
-
-    return res.status(200).json({
-      deletedComment: deletedComment
+        comments: newComment._id,
+      },
     });
+
+    return res.status(201).json(newComment);
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);
   }
 });
 
+//DELETAR COMMENT:
+router.delete(
+  "/delete/:idGarden/:idComment",
+  isAuth,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const { idComment } = req.params;
+      const deletedComment = await CommentModel.findByIdAndDelete(idComment);
 
+      return res.status(200).json({
+        deletedComment: deletedComment,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error);
+    }
+  }
+);
 
 /* router.post("/create/:idPlant/:idUser", async (req, res) => {
     try {
@@ -181,5 +178,5 @@ router.delete("/delete/:idComment", async (req, res) => {
       return res.status(400).json(error);
     }
   }); */
-  
-  export default router;
+
+export default router;

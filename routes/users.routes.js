@@ -129,7 +129,7 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
     const loggedInUser = req.currentUser;
     console.log(loggedInUser);
 
-    const user = await UserModel.findById(loggedInUser._id, {
+    let user = await UserModel.findById(loggedInUser._id, {
       passwordHash: 0,
     }).populate("garden");
 
@@ -148,9 +148,6 @@ router.get("/user/:idUser", isAuth, attachCurrentUser, async (req, res) => {
     //console.log(req.currentUser);
     const loggedInUser = req.currentUser;
     console.log(loggedInUser);
-
-    const user = await UserModel.findById(idUser).populate("garden");
-
 
     const user = await UserModel.findById(idUser).populate("garden");
     console.log(user);

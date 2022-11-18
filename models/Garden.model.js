@@ -29,4 +29,6 @@ const GardenSchema = new Schema(
   { timestamps: true }
 );
 
+
+
 export const GardenModel = mongoose.model("Garden", GardenSchema);
