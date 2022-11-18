@@ -64,13 +64,18 @@ router.delete("/delete/:id", isAuth, attachCurrentUser, async (req, res) => {
     //delete deletedPlant._doc.passwordHash;
 
     //deletando todos os comentários da planta
+
     /*    const deletedComments = await CommentModel.deleteMany({
       author: req.currentUser._id,
     }); */
 
+
     return res.status(200).json({
       message: "Usuário atualizado. Plantas e comentários deletados.",
       deletedPlant: deletedPlant,
+
+      // commentsUser: deletedComments,
+
     });
   } catch (error) {
     console.log(error);

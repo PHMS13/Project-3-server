@@ -9,9 +9,26 @@ const GardenSchema = new Schema(
     plants: [{ type: Schema.Types.ObjectId, ref: "Plant" }],
     likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
     gardenImage: { type: String, default: "" },
+    livingSpace: {
+      type: String,
+      required: true,
+      enum: [
+        "Sala",
+        "Banheiro",
+        "Cozinha",
+        "Varanda",
+        "Lavanderia",
+        "Quintal",
+        "Quarto",
+        "Outro",
+      ],
+      default: "Outro",
+    },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comments" }],
   },
   { timestamps: true }
 );
+
+
 
 export const GardenModel = mongoose.model("Garden", GardenSchema);
