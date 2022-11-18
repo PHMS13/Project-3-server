@@ -126,7 +126,7 @@ router.get("/profile", isAuth, attachCurrentUser, async (req, res) => {
     const loggedInUser = req.currentUser;
     console.log(loggedInUser);
 
-    const user = await UserModel.findById(loggedInUser._id, {
+    let user = await UserModel.findById(loggedInUser._id, {
       passwordHash: 0,
     }).populate("garden");
 

@@ -8,7 +8,7 @@ const app = express();
 import dbConnect from "./config/db.config.js";
 dbConnect();
 
-app.use(cors({ origin: process.env.REACT_APP_URI }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 import UsersRoute from "./routes/users.routes.js";
